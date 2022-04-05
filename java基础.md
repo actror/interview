@@ -292,5 +292,44 @@ public class FileTest2 {
 
    + 节点流：它是从/向某个特定设定`IO`设备读取\写入数据的流，处于数据处理的下层，因此也被称为低级流。
    + 处理流：用于对一个已存在的流进行封装，一般包装节点流。因此处理流通常也被称为高级流。
-+ ![I/O流的框架体系](C:\Users\86151\Desktop\Git\interview\imgs\1.png)
-+ ![流的Java类关系](C:\Users\86151\Desktop\Git\interview\imgs\2.png)
++ ![I/O流的框架体系](imgs/1.png)
++ ![流的Java类关系](imgs/2.png)
+
+
+
+## 24. 编写一段程序可以在屏幕上打印出这段程序的源代码
+
+```java
+public class FileTest3 {
+    public static void main(String[] args) throws IOException {
+        FileInputStream fis = new FileInputStream("./src/com/hang/IO/File/FileTest3.java");
+        byte[] bytes = new byte[1024];
+        int hasRead = 0;
+        while ((hasRead = fis.read(bytes)) > 0) {
+            System.out.println(new String(bytes, 0, hasRead));
+        }
+        fis.close();
+    }
+}
+```
+
+
+
+## 25. 什么是对象的序列化和反序列化
+
+在Java中如果一个类实现了Serializable接口则表明该类是可序列化的。需要注意的是，Serializeable接口只是一个标记接口，实现该接口无需实现任何方法，它只表现实现该接口的类的对象可被序列化。为该类提供一个全局常量serialVersionUID。
+
+### 1.序列化
+
+1. 使用一个节点流（一般是输出流，例如FileOutputStream）对象构建一个处理流ObjectOutputStream对象。
+2. 调用ObjectOutputStream对象的writeObject(object)方法将对象object序列化，并输出到ObjectOutputStream对象指定的流中。
+
+### 2.反序列化
+
+1. 使用一个节点流（一般是输入流，例如FileInputStream）对象构建一个处理流ObjectInputStream对象。
+2. 调用ObjectInputStream对象的readObject()方法读取流中的对象，该方法会返回一个Object类型的对象，可将该对象强制类型转换成其真实的类型。
+
+
+
+
+
